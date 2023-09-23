@@ -39,7 +39,8 @@ class Dense:
         return self.output
 
     def backpropagation(self, output_error, learning_rate):
-        self.weights = output_error*sigmoid(self.input)
+        self.weights -= learning_rate(output_error*sigmoid(self.input))
+        self.weights -= learning_rate(output_error*self.input)
 
 
 hello = Dense(2, 2, "relu")
