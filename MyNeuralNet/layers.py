@@ -22,6 +22,6 @@ class Dense:
         self.output = self.func(np.dot(input, self.weights) + self.biases)
         return self.output
 
-    def backpropagation(self, output_error, learning_rate):
+    def back_propagation(self, output_error, learning_rate):
         self.weights -= learning_rate(output_error * sigmoid(self.input))
         self.weights -= learning_rate(output_error * self.input)

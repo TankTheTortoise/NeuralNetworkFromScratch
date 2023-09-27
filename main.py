@@ -1,7 +1,20 @@
-import MyNeralNet
-import MyNeralNet.layers as layers
+import MyNeuralNet
+import MyNeuralNet.layers as layers
+from MyNeuralNet.models import Model
+from MyNeuralNet.loss_functions import *
 
-hello = layers.Dense(2, 2, "relu")
-hello.forward_propagation([1, 2])
+model = Model(
+    [
+        layers.Dense(2, 2, 'sigmoid'),
+        layers.Dense(2, 3, 'relu'),
+        layers.Dense(3, 2, 'sigmoid')
+    ],
+    mse
+)
 
-print(hello.weights, hello.output)
+data = [
+    [0, 0],
+    [1, 1]
+]
+
+print(model.predict(data))
