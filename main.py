@@ -17,4 +17,4 @@ data = [
     [1, 1]
 ]
 
-print(model.predict(data))
+print(model.predict(data) )
