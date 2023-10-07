@@ -23,5 +23,13 @@ class Dense:
         return self.output
 
     def back_propagation(self, output_error, learning_rate):
-        self.weights -= learning_rate(output_error * sigmoid(self.input))
-        self.weights -= learning_rate(output_error * self.input)
+        output_error *= sigmoid(self.input)
+        # The derivative of the weighted sum WX+B is equal to the input X
+        input_error = np.dot(output_error, self.weights)
+
+        weights_error = np.dot(self.input.T, output_error)
+
+        self.weights -= learning_rate * weights_error
+        self.biases -= learning_rate * self.biases
+
+        return input_error
