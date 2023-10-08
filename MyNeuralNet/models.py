@@ -28,9 +28,9 @@ class Model:
                     output = layer.forward_propagation(output)
 
                 # Find loss for display only
-                err += self.loss(y_train[j], output)
+                err += self.loss(y_train[j], output, d=False)
 
-                error = self.loss(y_train[j], output)
+                error = self.loss(y_train[j], output, d=True)
                 for layer in reversed(self.layers):
                     error = layer.back_propagation(error, learning_rate)
 
