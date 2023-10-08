@@ -5,8 +5,8 @@ from .loss_functions import *
 
 class Dense:
     def __init__(self, input_nodes, output_nodes, activation_function):
-        self.weights = np.random.uniform(-1, 1, [input_nodes, output_nodes])
-        self.biases = np.random.uniform(-1, 1, [output_nodes])
+        self.weights = np.random.rand(input_nodes, output_nodes) - 0.5
+        self.biases = np.random.rand(1, output_nodes) - 0.5
 
         self.activation_funcs = {"sigmoid": sigmoid, "relu": relu}
         self.func = self.activation_funcs[activation_function]
@@ -23,13 +23,12 @@ class Dense:
         return self.output
 
     def back_propagation(self, output_error, learning_rate):
-        output_error *= sigmoid(self.input)
-        # The derivative of the weighted sum WX+B is equal to the input X
-        input_error = np.dot(output_error, self.weights)
-
+        output_error = sigmoid(self.output, d=True) * output_error
+        input_error = np.dot(output_error, self.weights.T)
         weights_error = np.dot(self.input.T, output_error)
+        # dBias = output_error
 
+        # update parameters
         self.weights -= learning_rate * weights_error
-        self.biases -= learning_rate * self.biases
-
+        self.biases -= learning_rate * output_error
         return input_error
