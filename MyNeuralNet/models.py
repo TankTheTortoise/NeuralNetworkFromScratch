@@ -1,4 +1,6 @@
 import pickle
+import numpy as np
+from .loss_functions import
 
 class Model:
     def __init__(self, layers: list, loss):
@@ -18,6 +20,13 @@ class Model:
                 output = layer.forward_propagation(output)
             results.append(output)
         return results
+
+    def accuracy(self, x_test, y_test):
+        accuracies = []
+        for x in x_test:
+            guess = self.predict(x)
+            accuracies.append(1-(self.loss(y_test, x_test)))
+        return np.mean(accuracies)
 
     def fit(self, x_train, y_train, epochs, learning_rate):
         samples = len(x_train)
