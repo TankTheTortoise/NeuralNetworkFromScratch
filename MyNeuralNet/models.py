@@ -1,3 +1,5 @@
+import pickle
+
 class Model:
     def __init__(self, layers: list, loss):
         self.layers = layers
@@ -37,3 +39,7 @@ class Model:
             # Calculate average error on all samples
             err /= samples
             print('epoch %d/%d   error=%f' % (i + 1, epochs, err))
+
+    def export(self, path):
+        with open(f'{path}', 'wb') as file:
+            pickle.dump(self, file)
