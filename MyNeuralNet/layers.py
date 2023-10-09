@@ -23,7 +23,7 @@ class Dense:
         return self.output
 
     def back_propagation(self, output_error, learning_rate):
-        output_error = sigmoid(self.output, d=True) * output_error
+        output_error = self.func(self.output, d=True) * output_error
         input_error = np.dot(output_error, self.weights.T)
         weights_error = np.dot(self.input.T, output_error)
         # dBias = output_error
