@@ -50,19 +50,21 @@ if input("Type 'Create' to create new model: ") == "Create":
     """SOLVED - To do: Find why model isn't training- 
     The learning rate was too low so it ran into the vanishing gradient problem"""
 
-    model.fit(x_train, y_train, 1, 0.1)
+    model.fit(x_train, y_train, 10, 0.1)
     model.export("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
 
     with open('/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle', 'rb') as file:
         hello: Model = pickle.load(file)
-
-    for i in range(9):
-        print(np.argmax(hello.predict(x_test[i])))
-        print(np.argmax(y_test[i]))
-        plt.subplot(330 + 1 + i)
-        plt.imshow(d_x_test[i], cmap=plt.get_cmap('gray'))
-    plt.show()
+    print(model.accuracy(x_test, y_test))
+    # for i in range(9):
+    #     print(np.argmax(hello.predict(x_test[i])))
+    #     print(np.argmax(y_test[i]))
+    #     plt.subplot(330 + 1 + i)
+    #     plt.imshow(d_x_test[i], cmap=plt.get_cmap('gray'))
+    # plt.show()
 else:
     oldModel: Model = load("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
     print(y_test)
     print(oldModel.accuracy(x_test, y_test))
+
+# TODO: Loss seems too low when training
