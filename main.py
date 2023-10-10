@@ -1,11 +1,13 @@
 import MyNeuralNet.layers as layers
 from MyNeuralNet.models import Model
 from MyNeuralNet.loss_functions import *
+from MyNeuralNet.creator import load
+
 import pickle
 import matplotlib
+
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-
 
 from keras.datasets import mnist
 from keras.utils import to_categorical
@@ -21,7 +23,7 @@ d_y_test = x_test
 
 # training data : 60000 samples
 # reshape and normalize input data
-x_train = x_train.reshape(x_train.shape[0], 1, 28*28)
+x_train = x_train.reshape(x_train.shape[0], 1, 28 * 28)
 x_train = x_train.astype('float32')
 x_train /= 255
 # encode output which is a number in range [0,9] into a vector of size 10
@@ -29,22 +31,22 @@ x_train /= 255
 y_train = to_categorical(y_train)
 
 # same for test data : 10000 samples
-x_test = x_test.reshape(x_test.shape[0], 1, 28*28)
+x_test = x_test.reshape(x_test.shape[0], 1, 28 * 28)
 x_test = x_test.astype('float32')
 x_test /= 255
 y_test = to_categorical(y_test)
 
+
 model = Model(
     [
-        layers.Dense(28*28, 128, 'relu'),
+        layers.Dense(28 * 28, 128, 'relu'),
         layers.Dense(128, 128, 'relu'),
         layers.Dense(128, 10, 'sigmoid')
     ],
     mse
 )
 
-
-if input() == "Create":
+if input("Type 'Create' to create new model: ") == "Create":
     """SOLVED - To do: Find why model isn't training- 
     The learning rate was too low so it ran into the vanishing gradient problem"""
 
@@ -52,14 +54,15 @@ if input() == "Create":
     model.export("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
 
     with open('/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle', 'rb') as file:
-        hello:Model = pickle.load(file)
-
-
+        hello: Model = pickle.load(file)
 
     for i in range(9):
         print(np.argmax(hello.predict(x_test[i])))
         print(np.argmax(y_test[i]))
         plt.subplot(330 + 1 + i)
         plt.imshow(d_x_test[i], cmap=plt.get_cmap('gray'))
-        plt.show()
+    plt.show()
 else:
+    oldModel: Model = load("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
+    print(y_test)
+    print(oldModel.accuracy(x_test, y_test))

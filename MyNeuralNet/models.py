@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from .loss_functions import
+
 
 class Model:
     def __init__(self, layers: list, loss):
@@ -10,23 +10,24 @@ class Model:
     def add(self, layers: list):
         self.layers.append(layers)
 
-    def predict(self, inputs: list):
+    def predict(self, inputs: np.array):
         samples = len(inputs)
-        results = []
+        output = inputs[0]
+        for layer in self.layers:
+            output = layer.forward_propagation(output)
+        results = np.array(output)
 
-        for i in range(samples):
+        for i in range(1, samples):
             output = inputs[i]
             for layer in self.layers:
                 output = layer.forward_propagation(output)
-            results.append(output)
+            results = np.append(results, output, axis=0)
         return results
 
     def accuracy(self, x_test, y_test):
-        accuracies = []
-        for x in x_test:
-            guess = self.predict(x)
-            accuracies.append(1-(self.loss(y_test, x_test)))
-        return np.mean(accuracies)
+        guess = np.argmax(self.predict(x_test), axis=-1)
+        return np.mean(np.equal(guess, np.argmax(y_test, axis=-1)))
+        # add one to array for every matching argmax in x_test and y_test
 
     def fit(self, x_train, y_train, epochs, learning_rate):
         samples = len(x_train)
