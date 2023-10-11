@@ -20,6 +20,8 @@ The model using a Keras like creation
 model = Model(
   [
     Layers.Dense(input_shape, output_shape, activation_function),
+    Layers.Dense(input_shape, output_shape, activation_function),
+    Layers.Dense(input_shape, output_shape, activation_function)
   ],
   loss_function
 
