@@ -24,6 +24,29 @@ model = Model(
     Layers.Dense(input_shape, output_shape, activation_function)
   ],
   loss_function
-
 )
+```
+### Importing a Model
+```
+model = load(path)
+```
+
+### Training the Model
+```
+model.fit(x_train, y_train, epochs, learning_rate)
+```
+
+### Testing the Model
+```
+print(model.predict(test_sample))
+```
+
+### Accuracy of the Model
+```
+print(model.accuracy(x_test, y_test))
+```
+
+### Export Model
+```
+model.export(path)
 ```
