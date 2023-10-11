@@ -31,25 +31,30 @@ class Model:
 
     def fit(self, x_train, y_train, epochs, learning_rate):
         samples = len(x_train)
-
+        # An epoch is one full pass through the data
         for i in range(epochs):
             err = 0
+            # A sample is each piece of data
             for j in range(samples):
                 output = x_train[j]
+                # Each layer includes an activation layer and a dense layer
                 for layer in self.layers:
                     output = layer.forward_propagation(output)
 
-                # Find loss for display only
+                # Find loss for display only 
                 err += self.loss(y_train[j], output, d=False)
 
+                # Computing the loss derivative
                 error = self.loss(y_train[j], output, d=True)
                 for layer in reversed(self.layers):
                     error = layer.back_propagation(error, learning_rate)
 
             # Calculate average error on all samples
             err /= samples
+            # Error is displays in percentage
             print(f'epoch {i + 1}/{epochs}   error={err * 100}%')
 
     def export(self, path):
+        # Pickle dumps binary representation of the class into a file
         with open(f'{path}', 'wb') as file:
             pickle.dump(self, file)
