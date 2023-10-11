@@ -36,7 +36,6 @@ x_test = x_test.astype('float32')
 x_test /= 255
 y_test = to_categorical(y_test)
 
-
 model = Model(
     [
         layers.Dense(28 * 28, 128, 'relu'),
@@ -50,11 +49,9 @@ if input("Type 'Create' to create new model: ") == "Create":
     """SOLVED - To do: Find why model isn't training- 
     The learning rate was too low so it ran into the vanishing gradient problem"""
 
-    model.fit(x_train, y_train, 10, 0.1)
-    model.export("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
+    model.fit(x_train, y_train, 50, 0.01)
+    model.export("/home/tortoise/PycharmProjects/NeuralNetwork/model.pickle")
 
-    with open('/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle', 'rb') as file:
-        hello: Model = pickle.load(file)
     print(model.accuracy(x_test, y_test))
     # for i in range(9):
     #     print(np.argmax(hello.predict(x_test[i])))
@@ -66,5 +63,3 @@ else:
     oldModel: Model = load("/home/tortoise/PycharmProjects/NeuralNetwork/hello.pickle")
     print(y_test)
     print(oldModel.accuracy(x_test, y_test))
-
-# TODO: Loss seems too low when training

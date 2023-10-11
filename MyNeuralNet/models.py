@@ -48,7 +48,7 @@ class Model:
 
             # Calculate average error on all samples
             err /= samples
-            print('epoch %d/%d   error=%f' % (i + 1, epochs, err))
+            print(f'epoch {i + 1}/{epochs}   error={err * 100}%')
 
     def export(self, path):
         with open(f'{path}', 'wb') as file:
