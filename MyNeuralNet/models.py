@@ -24,11 +24,18 @@ class Model:
             results = np.append(results, output, axis=0)
         return results
 
+    """
+    Gets the prediction from the neural network and compares it to the answer.
+    Returns accuracy over the list of inputs.
+    """
     def accuracy(self, x_test, y_test):
+        # add one to array for every matching argmax in x_test and y_test
         guess = np.argmax(self.predict(x_test), axis=-1)
         return np.mean(np.equal(guess, np.argmax(y_test, axis=-1)))
-        # add one to array for every matching argmax in x_test and y_test
 
+    """
+    Trains the model on the x_train and y_train.
+    """
     def fit(self, x_train, y_train, epochs, learning_rate):
         samples = len(x_train)
         # An epoch is one full pass through the data
