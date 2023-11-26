@@ -1,0 +1,1 @@
+This is to make sure github adds the data folder. You can delete this file locally.

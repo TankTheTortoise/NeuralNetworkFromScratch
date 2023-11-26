@@ -23,3 +23,5 @@ testing.py
 /images/image.jpg
 /models/hello1.pickle
 /models/model.pickle
+/model.pickle
+/models/model1.pickle
