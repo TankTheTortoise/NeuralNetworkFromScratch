@@ -16,3 +16,10 @@ testing.py
 /data/mnist_test.csv
 
 /data/mnist_train.csv
+/images/input.jpg
+/images/one.png
+/images/output.jpg
+/images/output1.jpg
+/images/image.jpg
+/models/hello1.pickle
+/models/model.pickle

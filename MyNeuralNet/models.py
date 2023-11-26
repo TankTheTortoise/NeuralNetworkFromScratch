@@ -24,6 +24,7 @@ class Model:
             results = np.append(results, output, axis=0)
         return results
 
+
     """
     Gets the prediction from the neural network and compares it to the answer.
     Returns accuracy over the list of inputs.
